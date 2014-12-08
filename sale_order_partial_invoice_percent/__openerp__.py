@@ -11,7 +11,9 @@
     'license': 'AGPL-3',
     'depends': ['sale', 'account', 'sale_stock'],
     'data': [
-        'sale_view.xml',
+        'views/sale_view.xml',
+        'views/invoice_view.xml',
+        'wizard/sale_view.xml',
     ],
     'test': [],
     'demo': [],

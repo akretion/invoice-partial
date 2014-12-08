@@ -50,7 +50,7 @@
               <field name="sale_order_line_id" invisible="1"/>
               <field name="name"/>
               <field name="order_qty"/>
-              <!--<field name="percent_invoiced"/>-->
+              <field name="percent_invoiced"/>
               <field name="percent_to_invoice"/>
             </tree>
           </field>
