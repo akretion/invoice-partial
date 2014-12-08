@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data>
+
+<record id="view_sale_advance_payment_inv" model="ir.ui.view">
+  <field name="name">Invoice Order</field>
+  <field name="model">sale.advance.payment.inv</field>
+  <field name="inherit_id" ref="sale.view_sale_advance_payment_inv"/>
+  <field name="arch" type="xml">
+    <button name="create_invoices" position="after">
+        <button
+            name="create_partial_percent"
+            string="Show Lines to invoice"
+            type="object"
+            class="oe_highlight"
+            attrs="{'invisible': [('advance_payment_method', '!=', 'lines_percent')]}" />
+    </button>
+
+    <button
+        name="create_invoices"
+        string="Create and View Invoice"
+        type="object"
+        context="{'open_invoices': True}"
+        position="attributes">
+        <attribute name="attrs">{'invisible': [('advance_payment_method', 'in', ['lines', 'lines_percent'])]}</attribute>
+    </button>
+    <button
+        name="create_invoices"
+        string="Create Invoice"
+        type="object"
+        class="oe_highlight"
+        attrs="{'invisible': [('advance_payment_method', '=', 'lines')]}"
+        position="attributes">
+        <attribute name="attrs">{'invisible': [('advance_payment_method', 'in', ['lines', 'lines_percent'])]}</attribute>
+    </button>
+
+  </field>
+</record>
+
+<record id="view_sale_order_invoice_percent_form" model="ir.ui.view">
+  <field name="name">sale.order.invoice.percent.form</field>
+  <field name="model">sale.order.invoice.percent</field>
+  <field name="arch" type="xml">
+    <form version="7.0" string="Invoice Sale Order Lines">
+      <sheet>
+        <separator string="Invoice lines"/>
+        <group>
+          <field name="line_ids" nolabel="1">
+            <tree version="7.0" string="Lines" create="false" editable="bottom">
+              <field name="sale_order_line_id" invisible="1"/>
+              <field name="name"/>
+              <field name="order_qty"/>
+              <!--<field name="percent_invoiced"/>-->
+              <field name="percent_to_invoice"/>
+            </tree>
+          </field>
+        </group>
+      </sheet>
+      <footer>
+        <button name="create_invoice" type="object" string="Create Invoice" class="oe_highlight"/>
+        or
+        <button string="Cancel" class="oe_link" special="cancel" />
+      </footer>
+    </form>
+  </field>
+</record>
+
+</data>
+</openerp>
