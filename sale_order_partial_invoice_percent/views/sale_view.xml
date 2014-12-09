@@ -7,9 +7,26 @@
   <field name="model">sale.order</field>
   <field name="inherit_id" ref="sale.view_order_form"/>
   <field name="arch" type="xml">
-     <xpath expr="//tree//field[@name='discount']" position="after">
-       <field name="percent_invoiced" />
-     </xpath>
+    <xpath expr="//tree//field[@name='discount']" position="after">
+      <field name="percent_invoiced" />
+    </xpath>
+    <button name="%(sale.action_view_sale_advance_payment_inv)d"
+            string="Create Invoice"
+            type="action"
+            position="attributes">
+        <attribute name="invisible">1</attribute>
+    </button>
+    <button name="%(sale.action_view_sale_advance_payment_inv)d"
+            string="Create Invoice"
+            type="action"
+            position="after">
+        <button name="make_invoice_button"
+                string="Create Invoice"
+                type="object"
+                states="manual"
+                class="oe_highlight"
+                groups="base.group_user" />
+    </button>
   </field>
 </record>
 

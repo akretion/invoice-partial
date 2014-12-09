@@ -26,3 +26,31 @@ class SaleOrderLine(orm.Model):
             help="the quantity of product from this line already invoiced"
         ),
     }
+
+
+class SaleOrder(orm.Model):
+    _inherit = 'sale.order'
+
+    _columns = {
+        'invoice_with_percent': fields.boolean('Invoice with percent'),
+    }
+
+    _defaults = {
+        'invoice_with_percent': False,
+    }
+
+    def make_invoice_button(self, cr, uid, ids, context=None):
+        if context is None:
+            context = {}
+        order = self.browse(cr, uid, ids[0], context=context)
+        if order.invoice_with_percent:
+            wizard = self.pool["sale.advance.payment.inv"]
+            ctx = context.copy()
+            ctx['active_ids'] = ids
+            return wizard.create_partial_percent(cr, uid, [], context=ctx)
+
+        ir_model_data = self.pool.get('ir.model.data')
+        obj_type, obj_id = ir_model_data.get_object_reference(
+            cr, uid, 'sale', 'action_view_sale_advance_payment_inv'
+        )
+        return self.pool[obj_type].read(cr, uid, obj_id, context=context)
