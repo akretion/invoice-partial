@@ -185,7 +185,7 @@ class SOInvoicePercent(orm.TransientModel):
             'origin': sale.name,
             'account_id': res['account_id'],
             'price_unit': so_line.price_unit,
-            'quantity': so_line.product_uos_qty,
+            'quantity': so_line.product_uom_qty,
             'discount': so_line.discount,
             'uos_id': res.get('uos_id', False),
             'product_id': so_line.product_id.id,
